@@ -76,7 +76,6 @@ function parseMarkdown(text) {
 
         // 코드 블록
         if (sanitizedLine.trim().startsWith('```')) {
-            // ... (이하 다른 블록 처리 로직은 이전과 동일) ...
             const lang = sanitizedLine.trim().substring(3).trim();
             const codeLines = [];
             i++;
@@ -92,7 +91,6 @@ function parseMarkdown(text) {
         // 표
         if (i + 1 < lines.length && line.includes('|') && lines[i+1].includes('|') && lines[i+1].includes('-')) {
              if (lines[i+1].trim().replace(/\|/g, '').replace(/-/g, '').replace(/:/g, '').replace(/ /g, '') === '') {
-                // ... (표 로직 동일)
                 const headerLine = line;
                 const bodyLines = [];
                 i += 2;
@@ -110,7 +108,7 @@ function parseMarkdown(text) {
         if (hMatch) {
             const level = hMatch[1].length; // #의 개수로 레벨 판단
             if (level <= 6) {
-                htmlBlocks.push(`<h${level} style="font-weight: bold; font-size: ${2.5 - level * 0.25}em; margin: 0;">${parseInlineMarkdown(hMatch[2])}</h${level}>`);
+                htmlBlocks.push(`<h${level} style="font-weight: bold; font-size: ${2.0 - level * 0.25}em; margin: 0;">${parseInlineMarkdown(hMatch[2])}</h${level}>`);
                 continue;
             }
         }
